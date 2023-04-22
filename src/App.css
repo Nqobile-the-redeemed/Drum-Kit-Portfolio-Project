@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.ultimateContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+/* div {
+  outline: 1px solid black;
+} */
+
+#visibilityButton {
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.drum-pad {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #216869;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.button-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volumeBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.screen-space {
+  width: 100%;
+  height: 25
+  px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#drum-machine {
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #9DC4B5;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#volume-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #216869;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #07f40f;
+  cursor: pointer;
+}
+
+#music-switch {
+  width: 100%;
+  padding: 10px;
+  background-color: #EAC435;
+  border-radius: 4px;
+  border: 1px solid #216869;
+  font-family: 'Press Start 2P', cursive;
+}
+
+body {
+  background-image: url('C:\Users\godslayer omega\OneDrive\Desktop\kobi coder grindset\learning projects\new attemp at react\rockstar-creator\src\image folder\pawel-czerwinski-yn97LNy0bao-unsplash.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }

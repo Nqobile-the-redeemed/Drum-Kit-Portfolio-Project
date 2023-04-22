@@ -9,6 +9,8 @@ const soundHolder = [
     keyDown: 69,
     soundDescription: "Heater 1",
     secondSoundDescription: "Heater 2",
+    bgColor: "#E2EB98",
+    fontColor: "black"
   },
   {
     ID: "W",
@@ -17,6 +19,8 @@ const soundHolder = [
     keyDown: 70,
     soundDescription: "Heater 3",
     secondSoundDescription: "Heater 4",
+    bgColor: "#216869",
+    fontColor: "white"
   },
   {
     ID: "E",
@@ -25,6 +29,8 @@ const soundHolder = [
     keyDown: 71,
     soundDescription: "Heater 1",
     secondSoundDescription: "Heater 2",
+    bgColor: "#CEA07E",
+    fontColor: "black"
   },
   {
     ID: "A",
@@ -33,6 +39,8 @@ const soundHolder = [
     keyDown: 72,
     soundDescription: "disc",
     secondSoundDescription: "Heater 6",
+    bgColor: "#FAD4C0",
+    fontColor: "black"
   },
   {
     ID: "S",
@@ -41,6 +49,8 @@ const soundHolder = [
     keyDown: 73,
     soundDescription: "kick and hat",
     secondSoundDescription: "kick 2",
+    bgColor: "#6D4C3D",
+    fontColor: "white"
   },
   {
     ID: "D",
@@ -49,6 +59,8 @@ const soundHolder = [
     keyDown: 74,
     soundDescription: "Cev H2",
     secondSoundDescription: "Kick",
+    bgColor: "#002400",
+    fontColor: "white"
   },
   {
     ID: "Z",
@@ -57,6 +69,8 @@ const soundHolder = [
     keyDown: 75,
     soundDescription: "Heater 2",
     secondSoundDescription: "Heater 2",
+    bgColor: "#BAD9A2",
+    fontColor: "black"
   },
   {
     ID: "X",
@@ -65,6 +79,8 @@ const soundHolder = [
     keyDown: 76,
     soundDescription: "Heater 1",
     secondSoundDescription: "Heater 2",
+    bgColor: "#ADBF97",
+    fontColor: "black"
   },
   {
     ID: "C",
@@ -73,19 +89,21 @@ const soundHolder = [
     keyDown: 77, 
     soundDescription: "Heater 1",
     secondSoundDescription: "Heater 2",
+    bgColor: "#93A392",
+    fontColor: "white"
   }
 ];
 
-function StatusSwitch({ isSwitchedOn, setIsSwitchedOn}) {
+function StatusSwitch({ drumKitVisibility, setDrumKitVisibility}) {
  
 
   const toggle = () => {
-    setIsSwitchedOn(!isSwitchedOn);
+    setDrumKitVisibility(!drumKitVisibility);
   };
 
   return (
-    <button onClick={toggle}>
-      {isSwitchedOn ? 'ON' : 'OFF'}
+    <button id = "visibilityButton" onClick={toggle}>
+      {drumKitVisibility ? 'ON' : 'OFF'}
     </button>
   );
 }
@@ -98,8 +116,8 @@ function ToggleButton({ isOn, setIsOn}) {
   };
 
   return (
-    <button onClick={toggle}>
-      {isOn ? 'ON' : 'OFF'}
+    <button id = "music-switch" onClick={toggle}>
+      {isOn ? 'Hard Music' : 'Soft Music'}
     </button>
   );
 }
@@ -113,8 +131,8 @@ function VolumeSlider({ volume, setVolume }) {
   };
 
   return (
-    <div>
-      <label htmlFor="volume-slider">Volume</label>
+    <div className = "volumeBox">
+      {/* <label htmlFor="volume-slider">Volume</label> */}
       <input
         type="range"
         id="volume-slider"
@@ -124,7 +142,7 @@ function VolumeSlider({ volume, setVolume }) {
         value={volume}
         onChange={handleVolumeChange}
       />
-      <p>Volume: {volume}</p>
+      {/* <p>Volume: {volume}</p> */}
     </div>
   );
 }
@@ -133,7 +151,7 @@ function VolumeSlider({ volume, setVolume }) {
 const KeyboardScreen = ({ phrase }) => {
 
   return (
-    <div>
+    <div className='screen-space'>
       <p className='phrse'>{phrase}</p>
       
     </div>
@@ -186,8 +204,8 @@ const KeyboardButtons = ({ sound, setPhrase, volume, setVolume, isOn, isSwitched
   
 
   return (
-    <div>
-      <button ref={buttonRef} id={sound.ID} key={sound.ID} onClick={soundPlayer} className="drum-pad" >
+    <div className = "button-holder">
+      <button ref={buttonRef} id={sound.ID} key={sound.ID} onClick={soundPlayer} className="drum-pad" style={{ backgroundColor: sound.bgColor, color: sound.fontColor }}>
       {sound.ID}
       </button>
       
@@ -196,38 +214,48 @@ const KeyboardButtons = ({ sound, setPhrase, volume, setVolume, isOn, isSwitched
   )
 }
 
-
-function App() {
+const DrumKit = ({ drumKitVisibility, setDrumKitVisibility }) => {
 
   const [currentPhrase, setPhrase] = useState("");
   const [volume, setVolume] = useState(50);
   const [isOn, setIsOn] = useState(false);
-  const [isSwitchedOn, setIsSwitchedOn] = useState(false);
+  
+
 
   return (
+
     <div className="App" id="drum-machine">
-      {isSwitchedOn && (
-          <div classname = "full-holder">
-          <div id="display">
-          <KeyboardScreen phrase={currentPhrase} />
+          <div className = "full-holder">
+            <div id="display">
+              <KeyboardScreen phrase={currentPhrase} />
+            </div>
+            <div id = "keyboard">
+              {soundHolder.map((sound) => (
+                <KeyboardButtons key = {sound.ID} sound = {sound} setPhrase={setPhrase} volume={volume} setVolume = {setVolume} isOn={isOn} setIsOn={setIsOn} drumKitVisibility={drumKitVisibility} setDrumKitVisibility={setDrumKitVisibility}/>
+              ))}
+            </div>
+              <div id = "controls">
+                <VolumeSlider volume={volume} setVolume = {setVolume} drumKitVisibility={drumKitVisibility} setDrumKitVisibility={setDrumKitVisibility} />
+              </div>
+            <div id = "switch">
+                <ToggleButton isOn={isOn} setIsOn={setIsOn} drumKitVisibility={drumKitVisibility} setDrumKitVisibility={setDrumKitVisibility} />
+            </div>
           </div>
-          <div id = "keyboard">
-            {soundHolder.map((sound) => (
-              <KeyboardButtons key = {sound.ID} sound = {sound} setPhrase={setPhrase} volume={volume} setVolume = {setVolume} isOn={isOn} setIsOn={setIsOn} isSwitchedOn = {isSwitchedOn} setIsSwitchedOn = {setIsSwitchedOn}/>
-            ))}
-          </div>
-          <div id = "controls">
-          <VolumeSlider volume={volume} setVolume = {setVolume} isSwitchedOn = {isSwitchedOn} setIsSwitchedOn = {setIsSwitchedOn} />
-          </div>
-          <div id = "switch">
-            <ToggleButton isOn={isOn} setIsOn={setIsOn} isSwitchedOn = {isSwitchedOn} setIsSwitchedOn = {setIsSwitchedOn} />
-          </div>
-        </div>
-      )}
-      <div classname = "ultimateContainer">
-        <StatusSwitch />
-      </div>
     </div>
+
+  );
+}
+
+
+function App() {
+
+  const [drumKitVisibility, setDrumKitVisibility] = useState(false);
+
+  return (
+      <div className = "ultimateContainer">
+        <StatusSwitch drumKitVisibility={drumKitVisibility} setDrumKitVisibility={setDrumKitVisibility} />
+        { drumKitVisibility && <DrumKit />}
+      </div>
   );
 }
 
